@@ -30,5 +30,7 @@ export class Cadastro {
 
   createCliente() {
     this.service.create(this.cliente);
+    // isso é feito para limpar os campos do cliente, se não ele continua com o id do cadastro anterior
+    this.cliente = Cliente.newCliente();
   }
 }
