@@ -49,7 +49,7 @@
                   matInput
                   id="cpf"
                   name="cpf"
-                  type="number"
+                  mask="000.000.000-00"
                   [(ngModel)]="cliente.cpf"
                   required
                   placeholder="Ex: 123.456.789-00"
@@ -67,22 +67,59 @@
                   name="dataNascimento"
                   [(ngModel)]="cliente.dataNascimento"
                   required
+                  mask="00/00/0000"
                   placeholder="Digite sua data de nascimento"
                 />
               </mat-form-field>
             </div>
           </div>
+
+          <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start">
+            <div fxLayout="column" fxFlex="400px">
+              <mat-form-field class="full-width">
+                <mat-label>UF</mat-label>
+                <mat-select
+                  required
+                  [(ngModel)]="cliente.uf"
+                  name="uf"
+                  (selectionChange)="listMunicipios($event)"
+                >
+                  @for (uf of estados; track uf) {
+                  <mat-option [value]="uf.sigla">{{ uf.sigla }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start">
+            <div fxLayout="column" fxFlex="400px">
+              <mat-form-field class="full-width">
+                <mat-label>Municípios</mat-label>
+                <mat-select required [(ngModel)]="cliente.municipio" name="municipio">
+                  @for (municipio of municipios; track municipio) {
+                  <mat-option [value]="municipio.nome">{{ municipio.nome }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
         </mat-card-content>
         <mat-card-actions>
+          @if(!atualizando) {
+
           <button type="submit" matButton="filled">
             <mat-icon fontIcon="save"></mat-icon>
             Salvar
           </button>
+          }@else {
+
           <button matButton="tonal">
             <mat-icon fontIcon="refresh"></mat-icon>
             Atualizar
           </button>
-          <button matButton="outlined" class="ml-5">
+          }
+          <button type="button" matButton="outlined" class="ml-5">
             <mat-icon fontIcon="backspace"></mat-icon>
             Limpar
           </button>

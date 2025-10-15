@@ -67,9 +67,22 @@
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let cliente">
-              <button matIconButton (click)="editClient(cliente.id)">
+              <button matButton (click)="editClient(cliente.id)">
                 <mat-icon>edit</mat-icon>
+                Editar
               </button>
+
+              @if(!deletandoId || deletandoId !== cliente.id) {
+              <button matButton (click)="wantDelete(cliente.id)">
+                <mat-icon>delete</mat-icon>
+                Deletar
+              </button>
+              } @if(deletandoId === cliente.id){
+              <button matButton (click)="deleteCliente(cliente.id)">
+                <mat-icon>question_mark</mat-icon>
+                Confirmar
+              </button>
+              }
             </td>
           </ng-container>
 
